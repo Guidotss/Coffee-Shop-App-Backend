@@ -1,5 +1,5 @@
-import { LoginDto, RegisterDto } from "../../../infraestructure/dtos/auth";
-import { UserEntity } from "../../../infraestructure/entities/user/user.entity";
+import { LoginDto, RegisterDto } from "../../dtos/auth";
+import { UserEntity } from "../../entities/user/user.entity";
 
 export abstract class UserDataSource {
   abstract register(registerDto: RegisterDto): Promise<UserEntity>;
