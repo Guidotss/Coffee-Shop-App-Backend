@@ -14,22 +14,35 @@ export class AuthController {
         .status(err.statusCode)
         .json({ ok: false, message: err.message });
     }
+    console.log(err);
     return res
       .header("Content-Type", "application/json")
       .status(500)
       .json({ ok: false, message: "Internal server error" });
   }
 
-  register(req: Request, res: Response) {
+  public register = (req: Request, res: Response) => {
     const [error, registerDto] = RegisterDto.register(req.body);
-    
+
     if (error) {
       return res
         .header("Content-Type", "application/json")
         .status(400)
         .json({ ok: false, message: error });
     }
-    console.log(this.userRepository); 
-    
-  }
+    new Register(this.userRepository)
+      .execute(registerDto!)
+      .then((user) => {
+        const { name, email } = user;
+        return res
+          .header("Content-Type", "application/json")
+          .status(201)
+          .json({
+            ok: true,
+            message: "User created successfully",
+            data: { name, email },
+          });
+      })
+      .catch((err) => this.handleErrors(err, res));
+  };
 }

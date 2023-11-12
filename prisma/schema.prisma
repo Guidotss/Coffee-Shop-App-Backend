@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid()) @map("_id") @db.ObjectId
+  id        String  @id @map("_id") @default(auto()) @db.ObjectId
   name      String   @db.String
   email     String   @db.String
   password  String   @db.String
@@ -22,7 +22,7 @@ model User {
 }
 
 model Coffee {
-  id                 String  @id @default(cuid()) @map("_id") @db.ObjectId
+  id                 String  @id @default(auto()) @map("_id") @db.ObjectId
   name               String  @db.String
   description        String  @db.String
   roasted            String  @db.String
@@ -39,7 +39,7 @@ model Coffee {
 }
 
 model Beans {
-  id                 String  @id @default(cuid()) @map("_id") @db.ObjectId
+  id                 String  @id @default(auto()) @map("_id") @db.ObjectId
   name               String  @db.String
   description        String  @db.String
   roasted            String  @db.String
@@ -62,7 +62,7 @@ type Price {
 }
 
 model Order {
-  id        String   @id @default(cuid()) @map("_id") @db.ObjectId
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
   user      User     @relation(fields: [userId], references: [id])
   userId    String   @db.ObjectId
   coffee    Coffee   @relation(fields: [coffeeId], references: [id])

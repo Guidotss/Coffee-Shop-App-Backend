@@ -6,18 +6,13 @@ import { UserRepositoryImpl } from "../../infraestructure/repositories/user.repo
 
 export class AuthRoutes {
   static get routes() {
+
     const router = Router();
-    const datasouce = new UserDataSourceImpl();
-    const userRepository = new UserRepositoryImpl(datasouce);
-    const authController = new AuthController(userRepository);
-
-    
-
-    router.get("/login", (req, res) => {
-      res.json({ ok: true, message: "Auth routes" });
-    });
-
+    const datasource = new UserDataSourceImpl(); 
+    const userRepository = new UserRepositoryImpl(datasource);
+    const authController = new AuthController(userRepository); 
     router.post("/register", authController.register);
+    
 
     return router;
   }

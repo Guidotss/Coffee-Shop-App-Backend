@@ -6,6 +6,7 @@ import { UserEntity } from "../../../domain/entities/user/user.entity";
 import { CustomError } from "../../../domain/errors/custom.error";
 
 export class UserDataSourceImpl implements UserDataSource {
+  
   private async hashPassword(password: string): Promise<string> {
     const salt = await bcrypt.genSalt(10);
     return await bcrypt.hash(password, salt);
