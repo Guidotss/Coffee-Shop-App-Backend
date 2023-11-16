@@ -1,13 +1,13 @@
 import { ProductEntity } from "../../entities/shop/product.entity";
 import { ShopRepository } from "../../repositories/shop.repository";
 
-interface GetProductsUseCase {
-  execute(): Promise<ProductEntity[]>;
+interface GetProductUseCase {
+  execute(id: string): Promise<ProductEntity>;
 }
 
-export class GetProduct implements GetProductsUseCase {
+export class GetProduct implements GetProductUseCase {
   constructor(private readonly shopRepository: ShopRepository) {}
-  async execute(): Promise<ProductEntity[]> {
-    return this.shopRepository.getProducts();
+  async execute(id: string): Promise<ProductEntity> {
+    return this.shopRepository.getProductById(id);
   }
 }

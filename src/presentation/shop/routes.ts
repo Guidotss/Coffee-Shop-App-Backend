@@ -11,6 +11,7 @@ export class ShopRoutes {
         const shopController = new ShopControllers(shopRepository);
 
         router.get("/", shopController.getAll);
+        router.get("/:id", shopController.getById);
 
         return router;
     }
