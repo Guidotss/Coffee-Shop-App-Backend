@@ -1,14 +1,18 @@
+import { prisma } from "../../../data/mongo";
 import { ShopDataSource } from "../../../domain/datasources/shop/shop.datasource";
 import { ProductEntity } from "../../../domain/entities/shop/product.entity";
-import { ShopRepository } from "../../../domain/repositories/shop.repository";
+import { CustomError } from "../../../domain/errors/custom.error";
 
 export class ShopDataSourceImpl implements ShopDataSource {
-  constructor(private readonly shopRepository: ShopRepository) {}
-
-  getProducts(): Promise<ProductEntity[]> {
-    return this.shopRepository.getProducts();
+  async getProducts(): Promise<ProductEntity[]> {
+    const products = await prisma.product.findMany();
+    return products;
   }
-  getProductById(id: string): Promise<ProductEntity> {
-    return this.shopRepository.getProductById(id);
+  async getProductById(id: string): Promise<ProductEntity> {
+    const product = await prisma.product.findUnique({
+      where: { id },
+    });
+    if (!product) throw new CustomError(`Product with id ${id} not found`, 404);
+    return product;
   }
 }
