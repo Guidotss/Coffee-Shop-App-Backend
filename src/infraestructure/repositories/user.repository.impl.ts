@@ -2,7 +2,7 @@ import { UserDataSource } from "../../domain/datasources/user/user.datasource";
 import { LoginDto, RegisterDto } from "../../domain/dtos/auth";
 import { UpdateUserDto } from "../../domain/dtos/user/updateUser.dto";
 import { UserEntity } from "../../domain/entities/user/user.entity";
-import { UserRepository } from "../../domain/repositories/userRepository";
+import { UserRepository } from "../../domain/repositories/user.repository";
 
 export class UserRepositoryImpl implements UserRepository {
   constructor(private readonly userDatasource: UserDataSource) {}

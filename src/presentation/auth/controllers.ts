@@ -1,5 +1,5 @@
 import { Response, Request } from "express";
-import { UserRepository } from "../../domain/repositories/userRepository";
+import { UserRepository } from "../../domain/repositories/user.repository";
 import { CustomError } from "../../domain/errors/custom.error";
 import { Register, Login } from "../../domain/use-cases/auth";
 import { RegisterDto, LoginDto } from "../../domain/dtos/auth";
@@ -74,14 +74,14 @@ export class AuthController {
   };
 
   public renew = async (req: Request, res: Response) => {
-    const token = req.header("Authorization")?.split("Bearer ")[1];
-    if (!token) {
-      return res
-        .header("Content-Type", "application/json")
-        .status(401)
-        .json({ ok: false, message: "Unauthorized" });
-    }
+    const token = req.header("Authorization")!.split("Bearer ")[1];
     try {
+      if (!token) {
+        return res
+          .header("Content-Type", "application/json")
+          .status(401)
+          .json({ ok: false, message: "Unauthorized" });
+      }
       const { id } = (await JwtAdapter.verify(token)) as { id: string };
       const user = await this.userRepository.findUserById(id);
       if (!user) {
