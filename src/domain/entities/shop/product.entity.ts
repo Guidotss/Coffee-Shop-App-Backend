@@ -1,6 +1,6 @@
 import { Price } from "@prisma/client";
 
-export class CoffeeEntity {
+export class ProductEntity {
   constructor(
     public readonly id: string,
     public readonly name: string,
@@ -17,7 +17,7 @@ export class CoffeeEntity {
     public readonly type: string
   ) {}
 
-  public static fromObject(obj: { [key: string]: any }): CoffeeEntity {
+  public static fromObject(obj: { [key: string]: any }): ProductEntity {
     const {
       id,
       name,
@@ -92,7 +92,7 @@ export class CoffeeEntity {
       throw new Error("Missing type");
     }
 
-    return new CoffeeEntity(
+    return new ProductEntity(
       id,
       name,
       description,
